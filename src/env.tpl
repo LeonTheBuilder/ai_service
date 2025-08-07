@@ -1,0 +1,2 @@
+APP_DEFAULT_LLM_MODEL=qwen-turbo-latest
+APP_LLM_BAILIAN_API_KEY=sk-5a57b7dbd0ad497cbbedf0afdd556905
