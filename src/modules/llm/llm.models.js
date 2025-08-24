@@ -40,6 +40,8 @@ const TokenUsage = db.define('TokenUsage',
         }
     },
     {
+        tableName: 'ai_token_usage',
+        freezeTableName: true,
         charset: 'utf8mb4',
         timestamps: false,
         createdAt: false,
