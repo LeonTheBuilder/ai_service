@@ -6,10 +6,8 @@ const cfg = cfgdef();
 const nodeModulesPath = path.join(__dirname, "..", 'node_modules');
 cfg.nodeModulesPath = nodeModulesPath; // ejs 页面里面使用了这个路径
 //----------------------------------------------------------------
-cfg.app.name = 'user_service';
-cfg.loadContextFilePath = path.join(__dirname, 'loadcontext.js');
-cfg.genFolder = path.join(__dirname, 'gen');
-cfg.typeJsFolder = __dirname;
+cfg.app.name = 'ai_service';
+cfg.app.rootFolder = path.join(__dirname, '..');
 cfg.autowire.folders = [
     __dirname,
 ];
