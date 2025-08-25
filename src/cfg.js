@@ -13,7 +13,6 @@ cfg.autowire.folders = [
 ];
 //----------------------------------------------------------------
 cfg.web.port = 3014;
-cfg.web.view.viewFolder = require('./web/views/viewfolder');
 //----------------------------------------------------------------
 cfg.mysql.database = 'ai_service';
 cfg.mysql.serverTimezone = 'Asia/Shanghai';

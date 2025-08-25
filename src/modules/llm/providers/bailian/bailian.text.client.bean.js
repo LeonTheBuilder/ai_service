@@ -32,6 +32,7 @@ class BailianLlmTextClient {
         return [
             {'title': 'qwen-turbo', 'max_input_tokens': 1000000, 'max_output_tokens': 38912},
             {'title': 'qwen-plus', 'max_input_tokens': 129024, 'max_output_tokens': 38912},
+            {'title': 'qwen-long', 'max_input_tokens': 1000000, 'max_output_tokens': 38912},
         ];
     }
 
@@ -40,13 +41,34 @@ class BailianLlmTextClient {
             model = 'qwen-turbo',
             temperature = 1.8,
             max_tokens = 1024,
+            _filePath
         } = args;
         if (!args.seed) {
             args.seed = this.Sugar.randomDigits(4)
         }
+        // --------
+        let fileId = null;
+        if (_filePath) {
+            const uploadArgs = {
+                filePath: '/Users/chence/dev/ai_service/gen/bizExecutor.startWorkerForBizExecute.0.worker.gen.md',
+            }
+            // --------
+            fileId = await this.baiLianFile.uploadFile(uploadArgs);
+            // 在 args.messages 的最前面插入 {role: "system", content: `fileid://${fileID}`}
+            args.messages.unshift({role: "system", content: `fileid://${fileId}`});
+            args.model = 'qwen-long';
+        }
+        // --------
+
+
         this.log.info('call bailian start');
         const response = await this.getClient().chat.completions.create(args);
         this.log.info('call bailian end');
+        //
+        if (_filePath) {
+            await this.baiLianFile.deleteFile({fileId});
+        }
+
         return response;
     }
 

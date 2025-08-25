@@ -1,3 +1,4 @@
+const path = require("path");
 const loadContext = async function () {
     const a = require('aframework');
     const path = require("path");

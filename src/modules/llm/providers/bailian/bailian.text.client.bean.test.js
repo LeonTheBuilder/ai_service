@@ -1,12 +1,12 @@
 const loadContext = require('../../../../loadcontext');
 
-it('complete', async () => {
+it('bailianLlmTextClient.complete', async () => {
 
     const a = await loadContext();
-    const bailianLlmTextClient = a.beans.bailianLlmTextClient;
+    // -----------------------------------------------------
+    const llmTextService = a.beans.llmTextService;
     const idgen = a.beans.idgen;
-    const seed = await idgen.nextInt();
-    const rand = await a.models.Sugar.randomDigits(10);
+    const seed = await a.models.Sugar.randomDigits(10);
     const message = `
     请给我一个日本消失的三十年相关的话题。
 要求：
@@ -15,13 +15,57 @@ it('complete', async () => {
 {'topic':'话题'}
    `;
     const args = {
-        temperature: 1.8,
-        message: message,
-        enableSearch: false,
-        maxToken: 16384,
+        provider: 'bailian',
+        params: {
+            model: 'qwen-turbo',
+            temperature: 1.8,
+            messages: [
+                {role: "user", content: message}
+            ],
+            enableSearch: false,
+            maxToken: 16384,
+        }
     };
-    const resp = await bailianLlmTextClient.complete(args);
+    const resp = await llmTextService.complete(args);
     // 数字经济时代下的就业结构转型与挑战
     //
     console.info(resp.content);
+
+
+    // -----------------------------------------------------
+    process.exit(0);
+}).timeout(100000);
+
+
+it('qwenlong.fileTest', async () => {
+
+    const a = await loadContext();
+    // -----------------------------------------------------
+    const llmTextService = a.beans.llmTextService;
+    const idgen = a.beans.idgen;
+    const seed = await a.models.Sugar.randomDigits(10);
+    const message = `
+    这个文件说的是什么
+   `;
+    const args = {
+        provider: 'bailian',
+        params: {
+            model: 'qwen-turbo',
+            temperature: 1.8,
+            messages: [
+                {role: "user", content: message}
+            ],
+            enableSearch: false,
+            maxToken: 16384,
+            _filePath: '/Users/chence/dev/ai_service/gen/bizExecutor.startWorkerForBizExecute.0.worker.gen.md'
+        }
+    };
+    const resp = await llmTextService.complete(args);
+    // 数字经济时代下的就业结构转型与挑战
+    //
+    console.info(resp.content);
+
+
+    // -----------------------------------------------------
+    process.exit(0);
 }).timeout(100000);
