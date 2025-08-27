@@ -50,7 +50,7 @@ class BailianLlmTextClient {
         let fileId = null;
         if (_filePath) {
             const uploadArgs = {
-                filePath: '/Users/chence/dev/ai_service/gen/bizExecutor.startWorkerForBizExecute.0.worker.gen.md',
+                filePath: _filePath,
             }
             // --------
             fileId = await this.baiLianFile.uploadFile(uploadArgs);
